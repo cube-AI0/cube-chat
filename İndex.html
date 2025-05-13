@@ -50,6 +50,7 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
       box-shadow: 4px 0 12px rgb(0 0 0 / 0.8);
+      color: #fff;
     }
     #menuOverlay.open {
       transform: translateX(0);
@@ -154,6 +155,7 @@
       flex-grow: 1;
       min-height: 100px;
       max-height: 250px;
+      color: #ccc;
     }
     #menuOverlay nav .chat-history-list button {
       padding: 0.4rem 0.6rem;
@@ -198,6 +200,13 @@
       box-shadow: 0 2px 4px rgb(0 0 0 / 0.7);
       z-index: 1100;
       background-color: #000;
+      color: #fff;
+    }
+    nav#mainNav .text-xl,
+    nav#mainNav i,
+    nav#mainNav button,
+    nav#mainNav span {
+      color: #fff;
     }
     /* Scroll container for chat */
     main#chatContainer {
@@ -207,10 +216,11 @@
       max-width: 600px;
       margin: 0 auto;
       width: 100%;
-      padding: 1.5rem 1rem 1rem;
+      padding: 1.5rem 1rem 0.5rem; /* moved bottom padding up */
       overflow: hidden;
       background-color: #000;
       position: relative;
+      color: #fff;
     }
     #chat {
       flex: 1;
@@ -223,6 +233,7 @@
       font-size: 1rem;
       line-height: 1.4;
       position: relative;
+      color: #fff;
     }
     /* Message bubbles */
     .message-wrapper {
@@ -324,9 +335,11 @@
       border-top: 1px solid #222;
       padding-top: 0.75rem;
       user-select: none;
-      position: relative;
+      position: sticky;
+      bottom: 0;
+      background-color: #000;
       align-items: stretch;
-      background-color: transparent;
+      z-index: 1200;
     }
     textarea#messageInput {
       flex: 1;
@@ -450,8 +463,8 @@
         transform: scale(1.1);
       }
     }
-    /* Profile and Settings pages */
-    #profilePage, #settingsPage, #modelsPage {
+    /* Profile and Models pages */
+    #profilePage, #modelsPage {
       position: fixed;
       top: 0;
       left: 280px;
@@ -469,22 +482,22 @@
       flex-direction: column;
       font-family: 'Roboto Mono', monospace;
     }
-    #profilePage.open, #settingsPage.open, #modelsPage.open {
+    #profilePage.open, #modelsPage.open {
       transform: translateX(0);
     }
-    #profilePage header, #settingsPage header, #modelsPage header {
+    #profilePage header, #modelsPage header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 2rem;
     }
-    #profilePage header h2, #settingsPage header h2, #modelsPage header h2 {
+    #profilePage header h2, #modelsPage header h2 {
       font-size: 2rem;
       font-weight: 700;
       color: #fff;
       text-shadow: none;
     }
-    #profilePage button.closePageBtn, #settingsPage button.closePageBtn, #modelsPage button.closePageBtn {
+    #profilePage button.closePageBtn, #modelsPage button.closePageBtn {
       background: none;
       border: none;
       color: #fff;
@@ -495,17 +508,16 @@
       transition: background-color 0.3s ease;
     }
     #profilePage button.closePageBtn:hover, #profilePage button.closePageBtn:focus,
-    #settingsPage button.closePageBtn:hover, #settingsPage button.closePageBtn:focus,
     #modelsPage button.closePageBtn:hover, #modelsPage button.closePageBtn:focus {
       background-color: #222;
       outline: none;
     }
-    #profilePage section, #settingsPage section, #modelsPage section {
+    #profilePage section, #modelsPage section {
       margin-bottom: 2rem;
       max-width: 480px;
       width: 100%;
     }
-    #profilePage label, #settingsPage label, #modelsPage label {
+    #profilePage label, #modelsPage label {
       display: block;
       margin-bottom: 0.75rem;
       font-weight: 700;
@@ -513,7 +525,7 @@
       color: #fff;
       user-select: none;
     }
-    #profilePage input, #settingsPage input, #settingsPage select, #modelsPage input, #modelsPage select {
+    #profilePage input, #modelsPage input, #modelsPage select {
       width: 100%;
       padding: 0.75rem 1rem;
       border-radius: 0.5rem;
@@ -525,13 +537,13 @@
       box-sizing: border-box;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
-    #profilePage input:focus, #settingsPage input:focus, #settingsPage select:focus, #modelsPage input:focus, #modelsPage select:focus {
+    #profilePage input:focus, #modelsPage input:focus, #modelsPage select:focus {
       outline: none;
       box-shadow: 0 0 10px 2px #fff;
       background-color: #111;
       border-color: #fff;
     }
-    #settingsPage button.saveSettingsBtn {
+    #profilePage button.saveProfileBtn {
       background-color: #000;
       color: #fff;
       border: 2px solid #fff;
@@ -545,8 +557,8 @@
       align-self: flex-start;
       box-shadow: none;
     }
-    #settingsPage button.saveSettingsBtn:hover,
-    #settingsPage button.saveSettingsBtn:focus {
+    #profilePage button.saveProfileBtn:hover,
+    #profilePage button.saveProfileBtn:focus {
       background-color: #fff;
       color: #000;
       border-color: #000;
@@ -559,19 +571,19 @@
         width: 100vw;
         max-width: 100vw;
       }
-      #profilePage, #settingsPage, #modelsPage {
+      #profilePage, #modelsPage {
         left: 0;
         width: 100vw;
         max-width: 100vw;
         padding: 1.5rem 1rem 1.5rem 1rem;
       }
-      #profilePage section, #settingsPage section, #modelsPage section {
+      #profilePage section, #modelsPage section {
         margin-bottom: 1.5rem;
       }
-      #profilePage header h2, #settingsPage header h2, #modelsPage header h2 {
+      #profilePage header h2, #modelsPage header h2 {
         font-size: 1.5rem;
       }
-      #settingsPage button.saveSettingsBtn {
+      #profilePage button.saveProfileBtn {
         padding: 0.6rem 1.2rem;
         font-size: 1rem;
       }
@@ -675,6 +687,193 @@
       opacity: 0.5;
       user-select: none;
     }
+
+    /* White theme overrides */
+    body.white-theme {
+      background-color: #fff !important;
+      color: #000 !important;
+    }
+    body.white-theme nav#mainNav {
+      background-color: #fff !important;
+      color: #000 !important;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+    }
+    body.white-theme nav#mainNav .text-xl,
+    body.white-theme nav#mainNav i,
+    body.white-theme nav#mainNav button,
+    body.white-theme nav#mainNav span {
+      color: #000 !important;
+    }
+    body.white-theme #menuOverlay {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      color: #000 !important;
+      box-shadow: 4px 0 12px rgb(0 0 0 / 0.1) !important;
+    }
+    body.white-theme #menuOverlay header {
+      border-bottom: 1px solid #ccc !important;
+    }
+    body.white-theme #menuOverlay header h2 {
+      color: #000 !important;
+    }
+    body.white-theme #menuOverlay header button.closeBtn {
+      color: #000 !important;
+    }
+    body.white-theme #menuOverlay header button.closeBtn:hover,
+    body.white-theme #menuOverlay header button.closeBtn:focus {
+      background-color: #eee !important;
+      outline: none;
+    }
+    body.white-theme #menuOverlay nav {
+      color: #000 !important;
+    }
+    body.white-theme #menuOverlay nav section {
+      border-bottom: 1px solid #ccc !important;
+    }
+    body.white-theme #menuOverlay nav a,
+    body.white-theme #menuOverlay nav button {
+      color: #000 !important;
+      background-color: transparent !important;
+    }
+    body.white-theme #menuOverlay nav a:hover,
+    body.white-theme #menuOverlay nav a:focus,
+    body.white-theme #menuOverlay nav button:hover,
+    body.white-theme #menuOverlay nav button:focus {
+      background-color: #eee !important;
+      outline: none;
+    }
+    body.white-theme #menuOverlay nav .chat-history-list {
+      background-color: #f9f9f9 !important;
+      border: 1px solid #ccc !important;
+      color: #333 !important;
+    }
+    body.white-theme #menuOverlay nav .chat-history-list button {
+      color: #333 !important;
+    }
+    body.white-theme #menuOverlay nav .chat-history-list button:hover,
+    body.white-theme #menuOverlay nav .chat-history-list button:focus {
+      background-color: #ddd !important;
+      color: #000 !important;
+      outline: none;
+    }
+    body.white-theme #menuOverlay nav .chat-history-list button .date {
+      color: #666 !important;
+    }
+    body.white-theme #menuOverlay nav .chat-history-info {
+      color: #666 !important;
+    }
+    body.white-theme main#chatContainer {
+      background-color: #fff !important;
+      color: #000 !important;
+    }
+    body.white-theme #chat {
+      color: #000 !important;
+      background-color: #fff !important;
+    }
+    body.white-theme .message.user {
+      background-color: #e0e7ff !important;
+      color: #1e293b !important;
+      border-top-right-radius: 0 !important;
+    }
+    body.white-theme .message.ai {
+      background-color: #f3f4f6 !important;
+      color: #374151 !important;
+      border-top-left-radius: 0 !important;
+    }
+    body.white-theme .message.ai pre {
+      background-color: #d1d5db !important;
+      color: #1f2937 !important;
+    }
+    body.white-theme .copy-btn {
+      background-color: rgba(0,0,0,0.1) !important;
+      color: #374151 !important;
+    }
+    body.white-theme form#chatForm {
+      border-top: 1px solid #ccc !important;
+      background-color: transparent !important;
+    }
+    body.white-theme textarea#messageInput {
+      background-color: #f3f4f6 !important;
+      color: #111827 !important;
+      border-color: #9ca3af !important;
+    }
+    body.white-theme textarea#messageInput:focus {
+      background-color: #e5e7eb !important;
+      border-color: #6b7280 !important;
+      color: #111827 !important;
+      box-shadow: 0 0 8px 2px #6b7280 !important;
+    }
+    body.white-theme button#sendBtn, body.white-theme button#stopBtn {
+      background-color: #e5e7eb !important;
+      color: #111827 !important;
+    }
+    body.white-theme button#sendBtn:hover,
+    body.white-theme button#sendBtn:focus,
+    body.white-theme button#stopBtn:hover,
+    body.white-theme button#stopBtn:focus {
+      background-color: #d1d5db !important;
+      color: #111827 !important;
+      outline: none;
+    }
+    body.white-theme #profilePage, body.white-theme #modelsPage {
+      background-color: #fff !important;
+      color: #000 !important;
+    }
+    body.white-theme #profilePage header h2,
+    body.white-theme #modelsPage header h2 {
+      color: #000 !important;
+    }
+    body.white-theme #profilePage button.closePageBtn,
+    body.white-theme #modelsPage button.closePageBtn {
+      color: #000 !important;
+    }
+    body.white-theme #profilePage button.closePageBtn:hover,
+    body.white-theme #profilePage button.closePageBtn:focus,
+    body.white-theme #modelsPage button.closePageBtn:hover,
+    body.white-theme #modelsPage button.closePageBtn:focus {
+      background-color: #eee !important;
+      outline: none;
+    }
+    body.white-theme #profilePage label,
+    body.white-theme #modelsPage label {
+      color: #000 !important;
+    }
+    body.white-theme #profilePage input,
+    body.white-theme #modelsPage input,
+    body.white-theme #modelsPage select {
+      background-color: #fff !important;
+      color: #000 !important;
+      border-color: #000 !important;
+    }
+    body.white-theme #profilePage input:focus,
+    body.white-theme #modelsPage input:focus,
+    body.white-theme #modelsPage select:focus {
+      background-color: #f3f4f6 !important;
+      border-color: #000 !important;
+      box-shadow: 0 0 10px 2px #000 !important;
+      outline: none;
+    }
+    body.white-theme #profilePage button.saveProfileBtn {
+      background-color: #fff !important;
+      color: #000 !important;
+      border-color: #000 !important;
+    }
+    body.white-theme #profilePage button.saveProfileBtn:hover,
+    body.white-theme #profilePage button.saveProfileBtn:focus {
+      background-color: #000 !important;
+      color: #fff !important;
+      border-color: #fff !important;
+      outline: none;
+    }
+    /* Action bar buttons in white theme */
+    body.white-theme .action-bar button {
+      color: #000 !important;
+    }
+    body.white-theme .action-bar button:hover,
+    body.white-theme .action-bar button:focus {
+      background-color: #ddd !important;
+      color: #000 !important;
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -711,7 +910,7 @@
         aria-haspopup="true"
         aria-expanded="false"
         aria-label="Menüyü aç"
-        class="focus:outline-none focus:ring-2 focus:ring-white p-2 rounded-md hover:bg-gray-800"
+        class="focus:outline-none focus:ring-2 focus:ring-black p-2 rounded-md hover:bg-gray-200"
         type="button"
       >
         <i class="fas fa-bars text-xl" aria-hidden="true"></i>
@@ -720,7 +919,7 @@
         id="openModelsBtnNavbar"
         type="button"
         aria-label="Modeller sayfasını aç"
-        class="text-white font-semibold px-3 py-1 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white hidden sm:inline-block"
+        class="font-semibold px-3 py-1 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black hidden sm:inline-block"
       >
         Modeller
       </button>
@@ -754,7 +953,6 @@
       <section aria-label="Profil">
         <h3>seçenekler</h3>
         <button id="openProfileBtn" type="button" tabindex="0">Profil Bilgileri</button>
-        <button id="openSettingsBtn" type="button" tabindex="0">Hesap Ayarları</button>
         <button id="openModelsBtn" type="button" tabindex="0">Modeller</button>
       </section>
       <section aria-label="Sohbet Geçmişi" class="flex flex-col flex-grow">
@@ -781,16 +979,6 @@
       <label for="profileEmail">E-posta</label>
       <input type="email" id="profileEmail" name="profileEmail" placeholder="E-posta adresinizi girin" autocomplete="email" />
     </section>
-  </section>
-
-  <!-- Settings Page -->
-  <section id="settingsPage" aria-label="Ayarlar Sayfası" tabindex="0" role="region" aria-hidden="true">
-    <header>
-      <h2>Hesap Ayarları</h2>
-      <button class="closePageBtn" aria-label="Ayarlar sayfasını kapat" title="Ayarlar sayfasını kapat" type="button">
-        <i class="fas fa-times"></i>
-      </button>
-    </header>
     <section>
       <label for="themeSelect">Tema</label>
       <select id="themeSelect" name="themeSelect" aria-label="Tema seçimi">
@@ -836,7 +1024,7 @@
         <option value="id">Bahasa Indonesia</option>
       </select>
     </section>
-    <button class="saveSettingsBtn" type="button" aria-label="Ayarları kaydet">Ayarları Kaydet</button>
+    <button class="saveProfileBtn" type="button" aria-label="Profil bilgilerini ve ayarları kaydet">Kaydet</button>
   </section>
 
   <!-- Models Page -->
@@ -879,6 +1067,57 @@
               data-model="gemini-2.5"
               data-api-key="AIzaSyDhhDRN1MvSSTT7WG-8wFNdwF83PKq7_dw"
               aria-label="gemini 2.5 modelini seç"
+            >
+              Seç
+            </button>
+          </div>
+        </li>
+        <li class="flex items-center justify-between bg-gray-900 rounded-lg p-4">
+          <div>
+            <h3 class="font-bold text-lg">gpt-3.5-turbo</h3>
+            <p class="text-gray-400 text-sm">OpenAI'nin popüler ve güçlü modeli.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button
+              type="button"
+              class="select-model-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              data-model="gpt-3.5-turbo"
+              data-api-key=""
+              aria-label="gpt-3.5-turbo modelini seç"
+            >
+              Seç
+            </button>
+          </div>
+        </li>
+        <li class="flex items-center justify-between bg-gray-900 rounded-lg p-4">
+          <div>
+            <h3 class="font-bold text-lg">gpt-4</h3>
+            <p class="text-gray-400 text-sm">OpenAI'nin en gelişmiş modeli.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button
+              type="button"
+              class="select-model-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              data-model="gpt-4"
+              data-api-key=""
+              aria-label="gpt-4 modelini seç"
+            >
+              Seç
+            </button>
+          </div>
+        </li>
+        <li class="flex items-center justify-between bg-gray-900 rounded-lg p-4">
+          <div>
+            <h3 class="font-bold text-lg">huggingface-gpt2</h3>
+            <p class="text-gray-400 text-sm">Huggingface GPT-2 modeli (API entegre edildi).</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button
+              type="button"
+              class="select-model-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              data-model="huggingface-gpt2"
+              data-api-key=""
+              aria-label="huggingface-gpt2 modelini seç"
             >
               Seç
             </button>
@@ -938,7 +1177,6 @@
     </form>
   </main>
 
-
   <script>
     (() => {
       const menuButton = document.getElementById('menuButton');
@@ -955,16 +1193,13 @@
       const typingSpinner = document.getElementById('typingSpinner');
 
       const profilePage = document.getElementById('profilePage');
-      const settingsPage = document.getElementById('settingsPage');
       const modelsPage = document.getElementById('modelsPage');
       const openProfileBtn = document.getElementById('openProfileBtn');
-      const openSettingsBtn = document.getElementById('openSettingsBtn');
       const openModelsBtn = document.getElementById('openModelsBtn');
       const openModelsBtnNavbar = document.getElementById('openModelsBtnNavbar');
       const profileCloseBtn = profilePage.querySelector('button.closePageBtn');
-      const settingsCloseBtn = settingsPage.querySelector('button.closePageBtn');
       const modelsCloseBtn = modelsPage.querySelector('button.closePageBtn');
-      const saveSettingsBtn = settingsPage.querySelector('button.saveSettingsBtn');
+      const saveProfileBtn = profilePage.querySelector('button.saveProfileBtn');
       const themeSelect = document.getElementById('themeSelect');
       const fontSizeSelect = document.getElementById('fontSizeSelect');
       const languageSelect = document.getElementById('languageSelect');
@@ -1074,10 +1309,6 @@
           if (profilePage.classList.contains('open')) {
             e.preventDefault();
             closeProfilePage();
-          }
-          if (settingsPage.classList.contains('open')) {
-            e.preventDefault();
-            closeSettingsPage();
           }
           if (modelsPage.classList.contains('open')) {
             e.preventDefault();
@@ -1338,6 +1569,40 @@
 
       // Fetch AI response based on selected model and API key
       async function fetchOpenAIResponse(prompt) {
+        if (currentModel === 'huggingface-gpt2') {
+          // Use Huggingface GPT-2 API
+          try {
+            const response = await fetch('https://api-inference.huggingface.co/models/gpt2', {
+              method: 'POST',
+              headers: {
+                'Authorization': 'Bearer hf_YourHuggingfaceTokenHere', // Replace with your Huggingface token if needed
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                inputs: prompt,
+                parameters: {
+                  max_new_tokens: 100,
+                  return_full_text: false
+                }
+              })
+            });
+            if (!response.ok) {
+              throw new Error(`Huggingface API error: ${response.status}`);
+            }
+            const data = await response.json();
+            if (Array.isArray(data) && data.length > 0 && data[0].generated_text) {
+              return data[0].generated_text.trim();
+            } else if (data.error) {
+              throw new Error(data.error);
+            } else {
+              return 'Üzgünüm, yanıt alınamadı.';
+            }
+          } catch (error) {
+            const lang = languageSelect.value || 'en';
+            return getOfflineResponse(prompt, lang);
+          }
+        }
+
         if (!currentApiKey) {
           const lang = languageSelect.value || 'en';
           return getOfflineResponse(prompt, lang);
@@ -1434,16 +1699,7 @@
         const userMessageRaw = messageInput.value.trim();
         if (!userMessageRaw) return;
 
-        let userMessage = userMessageRaw;
-        if (sentiment) {
-          const prediction = sentiment.predict(userMessageRaw);
-          const score = prediction.score;
-          let sentimentLabel = 'Nötr';
-          if (score > 0.66) sentimentLabel = 'Olumlu';
-          else if (score < 0.33) sentimentLabel = 'Olumsuz';
-
-          userMessage = `[Duygu: ${sentimentLabel}] ${userMessageRaw}`;
-        }
+        const userMessage = userMessageRaw;
 
         const userMsgEl = createMessageElement(userMessage, true);
         chat.appendChild(userMsgEl);
@@ -1614,7 +1870,6 @@
 
       function openProfilePage() {
         closeMenu();
-        closeSettingsPage();
         closeModelsPage();
         profilePage.classList.add('open');
         profilePage.setAttribute('aria-hidden', 'false');
@@ -1625,23 +1880,9 @@
         profilePage.setAttribute('aria-hidden', 'true');
         menuButton.focus();
       }
-      function openSettingsPage() {
-        closeMenu();
-        closeProfilePage();
-        closeModelsPage();
-        settingsPage.classList.add('open');
-        settingsPage.setAttribute('aria-hidden', 'false');
-        settingsPage.focus();
-      }
-      function closeSettingsPage() {
-        settingsPage.classList.remove('open');
-        settingsPage.setAttribute('aria-hidden', 'true');
-        menuButton.focus();
-      }
       function openModelsPage() {
         closeMenu();
         closeProfilePage();
-        closeSettingsPage();
         modelsPage.classList.add('open');
         modelsPage.setAttribute('aria-hidden', 'false');
         modelsPage.focus();
@@ -1655,25 +1896,9 @@
       openProfileBtn.addEventListener('click', openProfilePage);
       profileCloseBtn.addEventListener('click', closeProfilePage);
 
-      openSettingsBtn.addEventListener('click', openSettingsPage);
-      settingsCloseBtn.addEventListener('click', closeSettingsPage);
-
       openModelsBtn.addEventListener('click', openModelsPage);
       openModelsBtnNavbar.addEventListener('click', openModelsPage);
       modelsCloseBtn.addEventListener('click', closeModelsPage);
-
-      saveSettingsBtn.addEventListener('click', () => {
-        const theme = themeSelect.value;
-        const fontSize = fontSizeSelect.value;
-        const language = languageSelect.value;
-
-        localStorage.setItem('cube_ai_theme', theme);
-        localStorage.setItem('cube_ai_fontSize', fontSize);
-        localStorage.setItem('cube_ai_language', language);
-
-        applySettings(theme, fontSize);
-        alert('Ayarlar kaydedildi.');
-      });
 
       // Model selection logic
       document.querySelectorAll('.select-model-btn').forEach(button => {
@@ -1694,59 +1919,9 @@
 
       function applySettings(theme, fontSize) {
         if (theme === 'light') {
-          document.body.style.backgroundColor = '#f9fafb';
-          document.body.style.color = '#111827';
-          chat.style.backgroundColor = '#ffffff';
-          messageInput.style.backgroundColor = '#f3f4f6';
-          messageInput.style.color = '#111827';
-          messageInput.style.borderColor = '#9ca3af';
-          sendBtn.style.color = '#111827';
-          sendBtn.style.backgroundColor = '#e5e7eb';
-          stopBtn.style.color = '#111827';
-          stopBtn.style.backgroundColor = '#e5e7eb';
-          document.querySelectorAll('.message.user').forEach(el => {
-            el.style.backgroundColor = '#e0e7ff';
-            el.style.color = '#1e293b';
-          });
-          document.querySelectorAll('.message.ai').forEach(el => {
-            el.style.backgroundColor = '#f3f4f6';
-            el.style.color = '#374151';
-          });
-          document.querySelectorAll('.message.ai pre').forEach(pre => {
-            pre.style.backgroundColor = '#d1d5db';
-            pre.style.color = '#1f2937';
-          });
-          document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.style.backgroundColor = 'rgba(0,0,0,0.1)';
-            btn.style.color = '#374151';
-          });
+          document.body.classList.add('white-theme');
         } else {
-          document.body.style.backgroundColor = '#000';
-          document.body.style.color = '#fff';
-          chat.style.backgroundColor = '#000';
-          messageInput.style.backgroundColor = '#111';
-          messageInput.style.color = '#fff';
-          messageInput.style.borderColor = '#555';
-          sendBtn.style.color = '#000';
-          sendBtn.style.backgroundColor = '#fff';
-          stopBtn.style.color = '#000';
-          stopBtn.style.backgroundColor = '#fff';
-          document.querySelectorAll('.message.user').forEach(el => {
-            el.style.backgroundColor = '#fff';
-            el.style.color = '#000';
-          });
-          document.querySelectorAll('.message.ai').forEach(el => {
-            el.style.backgroundColor = '#111';
-            el.style.color = '#ccc';
-          });
-          document.querySelectorAll('.message.ai pre').forEach(pre => {
-            pre.style.backgroundColor = '#222';
-            pre.style.color = '#ccc';
-          });
-          document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.style.backgroundColor = 'rgba(255,255,255,0.2)';
-            btn.style.color = '#ccc';
-          });
+          document.body.classList.remove('white-theme');
         }
 
         if (fontSize === 'small') {
@@ -1764,31 +1939,39 @@
       function loadProfile() {
         const name = localStorage.getItem('cube_ai_profile_name') || '';
         const email = localStorage.getItem('cube_ai_profile_email') || '';
+        const theme = localStorage.getItem('cube_ai_theme') || 'dark';
+        const fontSize = localStorage.getItem('cube_ai_fontSize') || 'medium';
+        const language = localStorage.getItem('cube_ai_language') || 'tr';
+
         profileNameInput.value = name;
         profileEmailInput.value = email;
+        themeSelect.value = theme;
+        fontSizeSelect.value = fontSize;
+        languageSelect.value = language;
+
+        applySettings(theme, fontSize);
       }
 
-      profileNameInput.addEventListener('blur', () => {
-        localStorage.setItem('cube_ai_profile_name', profileNameInput.value.trim());
-      });
-      profileEmailInput.addEventListener('blur', () => {
-        localStorage.setItem('cube_ai_profile_email', profileEmailInput.value.trim());
-      });
+      saveProfileBtn.addEventListener('click', () => {
+        const name = profileNameInput.value.trim();
+        const email = profileEmailInput.value.trim();
+        const theme = themeSelect.value;
+        const fontSize = fontSizeSelect.value;
+        const language = languageSelect.value;
 
-      function loadLanguage() {
-        const lang = localStorage.getItem('cube_ai_language') || 'tr';
-        languageSelect.value = lang;
-      }
+        localStorage.setItem('cube_ai_profile_name', name);
+        localStorage.setItem('cube_ai_profile_email', email);
+        localStorage.setItem('cube_ai_theme', theme);
+        localStorage.setItem('cube_ai_fontSize', fontSize);
+        localStorage.setItem('cube_ai_language', language);
+
+        applySettings(theme, fontSize);
+        alert('Profil bilgileri ve ayarlar kaydedildi.');
+      });
 
       window.addEventListener('load', () => {
         renderChatHistoryList(loadChatHistory());
         loadProfile();
-        loadLanguage();
-        const savedTheme = localStorage.getItem('cube_ai_theme') || 'dark';
-        const savedFontSize = localStorage.getItem('cube_ai_fontSize') || 'medium';
-        themeSelect.value = savedTheme;
-        fontSizeSelect.value = savedFontSize;
-        applySettings(savedTheme, savedFontSize);
         setTimeout(() => {
           if (initialLoadingOverlay) {
             initialLoadingOverlay.style.opacity = '0';
@@ -1798,11 +1981,6 @@
             }, 500);
           }
         }, 800);
-      });
-
-      let sentiment;
-      ml5.sentiment('movieReviews').then(model => {
-        sentiment = model;
       });
 
       function addActionBar(wrapper, messageBubble, isUserMessage) {
