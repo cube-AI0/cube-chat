@@ -1,709 +1,1649 @@
 <html class="scroll-smooth" lang="tr">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   Cube AI Chat - Tanıtım Sitesi
-  </title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cube AI - Yapay Zeka Destekli Sohbet Uygulaması</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&amp;display=swap" rel="stylesheet"/>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+    rel="stylesheet"
+  />
   <style>
-   body {
+    body {
       font-family: 'Roboto Mono', monospace;
-      background-color: #000;
-      color: #fff;
+      background-color: #fff;
+      color: #000;
       margin: 0;
       scroll-behavior: smooth;
-      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    a:focus-visible {
-      outline: 2px solid #fff;
-      outline-offset: 2px;
+    body.dark {
+      background-color: #1f2937;
+      color: #d1d5db;
     }
-    /* Custom underline animation for links */
-    a.underline-anim {
-      position: relative;
+    a {
+      transition: color 0.3s ease;
+      color: inherit;
       text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      color: #2563eb;
+      outline: none;
+    }
+    /* Scrollbar for sections with overflow */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #2563eb;
+      border-radius: 3px;
+    }
+    /* Section headings */
+    h2.section-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-align: center;
       color: inherit;
     }
-    a.underline-anim::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 1.5px;
-      bottom: 0;
-      left: 0;
+    h3.feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: inherit;
+    }
+    /* Buttons */
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 14px rgb(37 99 235 / 0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.125rem;
+      text-decoration: none;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: #1e40af;
+      box-shadow: 0 6px 20px rgb(30 64 175 / 0.7);
+      outline: none;
+    }
+    /* Navbar */
+    header {
       background-color: #fff;
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
-    }
-    a.underline-anim:hover::after,
-    a.underline-anim:focus::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-    /* Sidebar menu styles */
-    #sidebarMenu {
+      border-bottom: 1px solid #e5e7eb;
       position: fixed;
       top: 0;
       left: 0;
-      height: 100vh;
-      width: 280px;
-      max-width: 80vw;
-      background-color: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(8px);
-      z-index: 1500;
-      transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      box-shadow: 4px 0 12px rgb(0 0 0 / 0.8);
-      color: #fff;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
-    #sidebarMenu.open {
-      transform: translateX(0);
+    body.dark header {
+      background-color: #111827;
+      border-color: #374151;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.3);
     }
-    #sidebarMenu header {
-      padding: 1.5rem 1.5rem 1rem;
-      border-bottom: 1px solid #222;
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-    #sidebarMenu header h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
       user-select: none;
     }
-    #sidebarMenu header button.closeBtn {
+    nav a.logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: inherit;
+      user-select: none;
+    }
+    nav a.logo img {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+      user-select: none;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+      font-family: 'Roboto Mono', monospace;
+    }
+    nav .nav-links a {
+      color: inherit;
+      font-size: 1rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    nav .nav-links a:hover,
+    nav .nav-links a:focus {
+      background-color: #e0e7ff;
+      outline: none;
+      color: #2563eb;
+    }
+    body.dark nav .nav-links a:hover,
+    body.dark nav .nav-links a:focus {
+      background-color: #2563eb;
+      color: white;
+    }
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-toggle {
       background: none;
       border: none;
-      color: #fff;
-      font-size: 1.5rem;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
       padding: 0.25rem 0.5rem;
       border-radius: 0.375rem;
       transition: background-color 0.3s ease;
     }
-    #sidebarMenu header button.closeBtn:hover,
-    #sidebarMenu header button.closeBtn:focus {
-      background-color: #222;
+    .dropdown-toggle:hover,
+    .dropdown-toggle:focus {
+      background-color: #e0e7ff;
+      outline: none;
+      color: #2563eb;
+    }
+    body.dark .dropdown-toggle:hover,
+    body.dark .dropdown-toggle:focus {
+      background-color: #2563eb;
+      color: white;
+    }
+    .dropdown-toggle::after {
+      content: "\f0d7";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 0.7rem;
+      margin-left: 0.25rem;
+      color: #2563eb;
+      user-select: none;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+      margin-top: 0.5rem;
+      min-width: 200px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 1500;
+    }
+    body.dark .dropdown-menu {
+      background-color: #111827;
+      border-color: #374151;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+    }
+    .dropdown-menu.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .dropdown-menu a,
+    .dropdown-menu button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 500;
+      font-size: 1rem;
+      color: inherit;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      user-select: none;
+    }
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus,
+    .dropdown-menu button:hover,
+    .dropdown-menu button:focus {
+      background-color: #e0e7ff;
+      outline: none;
+      color: #2563eb;
+    }
+    body.dark .dropdown-menu a:hover,
+    body.dark .dropdown-menu a:focus,
+    body.dark .dropdown-menu button:hover,
+    body.dark .dropdown-menu button:focus {
+      background-color: #2563eb;
+      color: white;
+    }
+    /* Mobile menu */
+    #mobileMenuBtn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: inherit;
+      user-select: none;
+    }
+    #mobileMenu {
+      display: none;
+      flex-direction: column;
+      background-color: #fff;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1400;
+    }
+    body.dark #mobileMenu {
+      background-color: #111827;
+      border-color: #374151;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+    }
+    #mobileMenu.show {
+      display: flex;
+    }
+    #mobileMenu a,
+    #mobileMenu button {
+      padding: 1rem 1.5rem;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 600;
+      font-size: 1rem;
+      color: inherit;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #mobileMenu a:hover,
+    #mobileMenu a:focus,
+    #mobileMenu button:hover,
+    #mobileMenu button:focus {
+      background-color: #e0e7ff;
+      outline: none;
+      color: #2563eb;
+    }
+    body.dark #mobileMenu a:hover,
+    body.dark #mobileMenu a:focus,
+    body.dark #mobileMenu button:hover,
+    body.dark #mobileMenu button:focus {
+      background-color: #2563eb;
+      color: white;
+    }
+    /* Responsive Navbar */
+    @media (max-width: 768px) {
+      nav .nav-links {
+        display: none;
+      }
+      #mobileMenuBtn {
+        display: block;
+      }
+    }
+    /* Hero section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 6rem 1rem 2rem 1rem;
+      text-align: center;
+      background: #fff;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark #hero {
+      background: #1f2937;
+      color: #d1d5db;
+    }
+    #hero img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 1.5rem;
+      user-select: none;
+      filter: none;
+      transition: transform 0.3s ease;
+    }
+    #hero img:hover,
+    #hero img:focus {
+      transform: scale(1.05);
       outline: none;
     }
-    #sidebarMenu nav {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem 1.5rem;
+    #hero h1 {
+      font-size: 2.75rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+      user-select: none;
+      text-shadow: none;
+    }
+    #hero p {
+      font-size: 1.125rem;
+      max-width: 90vw;
+      margin: 0 auto 2rem auto;
+      line-height: 1.5;
+      user-select: none;
+    }
+    /* Download section on main page */
+    #download {
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
+      padding: 1rem 1rem 2rem 1rem;
+      text-align: center;
+      transition: color 0.3s ease;
+    }
+    body.dark #download {
+      color: #d1d5db;
+    }
+    #download p {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      user-select: none;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: inherit;
+    }
+    #download p i {
+      color: #2563eb;
+      font-size: 1.5rem;
+    }
+    #download .download-links {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: #fff;
+      flex-wrap: nowrap;
+      max-width: 400px;
+      margin: 0 auto;
     }
-    #sidebarMenu nav a,
-    #sidebarMenu nav button {
-      display: block;
-      color: #fff;
-      text-decoration: none;
-      padding: 0.5rem 0.75rem;
-      border-radius: 0.375rem;
-      background-color: transparent;
-      text-align: left;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-weight: 500;
-      user-select: text;
-      border: none;
+    @media (min-width: 640px) {
+      #download .download-links {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+    #download .download-card {
+      background-color: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 6px 20px rgb(0 0 0 / 0.1);
+      padding: 1.25rem 1.5rem;
       width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      text-decoration: none;
+      color: #000;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: 1rem;
+      box-sizing: border-box;
     }
-    #sidebarMenu nav a:hover,
-    #sidebarMenu nav a:focus,
-    #sidebarMenu nav button:hover,
-    #sidebarMenu nav button:focus {
-      background-color: #222;
+    body.dark #download .download-card {
+      background-color: #111827;
+      color: #d1d5db;
+      box-shadow: 0 6px 20px rgb(0 0 0 / 0.5);
+    }
+    #download .download-card:hover,
+    #download .download-card:focus {
+      box-shadow: 0 10px 30px rgb(37 99 235 / 0.3);
+      transform: translateY(-4px);
+      outline: none;
+      color: #2563eb;
+    }
+    body.dark #download .download-card:hover,
+    body.dark #download .download-card:focus {
+      color: white;
+      box-shadow: 0 10px 30px rgb(37 99 235 / 0.7);
+    }
+    #download .download-card .icon-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+    #download .download-card .btn-download {
+      background-color: #2563eb;
+      color: white;
+      font-weight: 700;
+      padding: 0.5rem 1.25rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 14px rgb(37 99 235 / 0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #download .download-card .btn-download:hover,
+    #download .download-card .btn-download:focus {
+      background-color: #1e40af;
+      box-shadow: 0 6px 20px rgb(30 64 175 / 0.7);
       outline: none;
     }
-    /* Overlay behind sidebar */
-    #overlay {
+    /* Features section */
+    #features {
+      background-color: #f9fafb;
+      padding: 4rem 1rem 6rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark #features {
+      background-color: #111827;
+      color: #d1d5db;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .feature-card {
+      background-color: #fff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      cursor: default;
+      color: #374151;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    body.dark .feature-card {
+      background-color: #1f2937;
+      color: #d1d5db;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.5);
+    }
+    .feature-card:hover,
+    .feature-card:focus-within {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgb(37 99 235 / 0.3);
+      outline: none;
+      color: #2563eb;
+    }
+    .feature-icon {
+      font-size: 3.5rem;
+      color: #2563eb;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+    .feature-description {
+      font-size: 1rem;
+      line-height: 1.5;
+      white-space: pre-line;
+      user-select: text;
+    }
+    /* FAQ section */
+    #faq {
+      background-color: #fff;
+      padding: 4rem 1rem 6rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark #faq {
+      background-color: #111827;
+      color: #d1d5db;
+    }
+    .faq-item {
+      margin-bottom: 1.5rem;
+      user-select: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: #2563eb;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background-color: #f3f4f6;
+      border-radius: 0.75rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+    }
+    body.dark .faq-question {
+      background-color: #1f2937;
+      color: #60a5fa;
+    }
+    .faq-question:hover,
+    .faq-question:focus {
+      background-color: #2563eb;
+      color: #fff;
+      outline: none;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      background-color: #e5e7eb;
+      border-radius: 0 0 0.75rem 0.75rem;
+      padding: 0 1rem;
+      color: #374151;
+      font-size: 1rem;
+      line-height: 1.5;
+      user-select: text;
+    }
+    body.dark .faq-answer {
+      background-color: #374151;
+      color: #d1d5db;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+      padding: 1rem;
+    }
+    /* Footer */
+    footer {
+      background-color: #f3f4f6;
+      color: #6b7280;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.9rem;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark footer {
+      background-color: #111827;
+      color: #9ca3af;
+    }
+    footer a {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+    footer a:hover,
+    footer a:focus {
+      color: #1e40af;
+      outline: none;
+    }
+    /* Chat container */
+    main#chatContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+      margin: 2rem auto 3rem auto;
+      width: 100%;
+      padding: 1.5rem 1rem 1rem;
+      overflow: hidden;
+      background-color: #fff;
+      position: relative;
+      color: #000;
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+      font-family: 'Roboto Mono', monospace;
+      height: 600px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark main#chatContainer {
+      background-color: #1f2937;
+      color: #d1d5db;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+    }
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #9ca3af transparent;
+      user-select: text;
+      font-size: 1rem;
+      line-height: 1.4;
+      position: relative;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    /* Scrollbar for chat */
+    .chat-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .chat-scroll::-webkit-scrollbar-thumb {
+      background-color: #9ca3af;
+      border-radius: 3px;
+    }
+    /* Message bubbles */
+    .message-wrapper {
+      position: relative;
+      max-width: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      user-select: text;
+      font-family: 'Roboto Mono', monospace;
+    }
+    .message-wrapper.user {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+    .message-wrapper.ai {
+      align-self: flex-start;
+      align-items: flex-start;
+    }
+    .message {
+      padding: 1rem 1.25rem;
+      border-radius: 1rem;
+      word-break: break-word;
+      white-space: pre-wrap;
+      font-size: 1rem;
+      line-height: 1.4;
+      user-select: text;
+      cursor: default;
+      max-width: 100%;
+      box-sizing: border-box;
+      position: relative;
+      min-width: 3rem;
+      max-width: 90%;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .message.user {
+      background-color: #e0e7ff;
+      color: #1e293b;
+      border-top-right-radius: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    body.dark .message.user {
+      background-color: #2563eb;
+      color: white;
+    }
+    .message.ai {
+      background-color: #f3f4f6;
+      color: #374151;
+      border-top-left-radius: 0;
+      animation: fadeIn 0.3s ease forwards;
+      white-space: pre-wrap;
+    }
+    body.dark .message.ai {
+      background-color: #374151;
+      color: #d1d5db;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Input area */
+    form#chatForm {
+      display: flex;
+      gap: 0.5rem;
+      border-top: 1px solid #d1d5db;
+      padding-top: 0.75rem;
+      user-select: none;
+      position: relative;
+      align-items: stretch;
+      background-color: transparent;
+      transition: border-color 0.3s ease;
+    }
+    body.dark form#chatForm {
+      border-color: #374151;
+    }
+    textarea#messageInput {
+      flex: 1;
+      resize: none;
+      border-radius: 0.5rem;
+      background-color: #f3f4f6;
+      color: #111827;
+      border: 1.5px solid #9ca3af;
+      padding: 0.75rem 1rem;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1rem;
+      line-height: 1.4;
+      min-height: 2.75rem;
+      max-height: 6rem;
+      overflow-y: auto;
+      user-select: text;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      box-sizing: border-box;
+      line-height: 1.25rem;
+      outline-offset: 2px;
+    }
+    body.dark textarea#messageInput {
+      background-color: #374151;
+      color: #d1d5db;
+      border-color: #6b7280;
+    }
+    textarea#messageInput:focus {
+      outline: none;
+      background-color: #e5e7eb;
+      border-color: #2563eb;
+      color: #111827;
+      box-shadow: 0 0 8px 2px #2563eb;
+    }
+    body.dark textarea#messageInput:focus {
+      background-color: #4b5563;
+      border-color: #60a5fa;
+      color: #d1d5db;
+      box-shadow: 0 0 8px 2px #60a5fa;
+    }
+    button#sendBtn {
+      background-color: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      min-width: 2.75rem;
+      height: 2.75rem;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: none;
+    }
+    button#sendBtn:hover,
+    button#sendBtn:focus {
+      background-color: #1e40af;
+      color: #fff;
+      outline: none;
+    }
+    button#sendBtn:disabled {
+      background-color: #a5b4fc;
+      color: #c7d2fe;
+      cursor: not-allowed;
+    }
+    /* Disable textarea scrollbar on iOS */
+    textarea#messageInput::-webkit-scrollbar {
+      display: none;
+    }
+    /* Floating chat icon */
+    #chatIcon {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: #2563eb;
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgb(37 99 235 / 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1500;
+    }
+    #chatIcon:hover,
+    #chatIcon:focus {
+      background-color: #1e40af;
+      box-shadow: 0 6px 20px rgb(30 64 175 / 0.9);
+      outline: none;
+    }
+    #chatIcon i {
+      font-size: 1.5rem;
+    }
+    /* Cookie consent */
+    #cookieConsent {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #2563eb;
+      color: white;
+      padding: 1rem 1.5rem;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.9rem;
+      z-index: 2000;
+      user-select: none;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      box-sizing: border-box;
+    }
+    #cookieConsent.show {
+      display: flex;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    #cookieConsent p {
+      margin: 0;
+      flex: 1 1 auto;
+    }
+    #cookieConsent button {
+      background-color: white;
+      color: #2563eb;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
+      font-family: 'Roboto Mono', monospace;
+    }
+    #cookieConsent button:hover,
+    #cookieConsent button:focus {
+      background-color: #e0e7ff;
+      outline: none;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Modal overlay */
+    #chatModalOverlay {
       position: fixed;
       inset: 0;
       background-color: rgba(0,0,0,0.5);
-      z-index: 1400;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-    #overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      #sidebarMenu {
-        width: 100vw;
-        max-width: 100vw;
-      }
-    }
-    /* Login Page Styles */
-    #loginPage {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.95);
-      backdrop-filter: blur(8px);
-      z-index: 1600;
       display: none;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
-      box-sizing: border-box;
-      color: #fff;
-      font-family: 'Roboto Mono', monospace;
+      z-index: 3000;
+      user-select: none;
     }
-    #loginPage.open {
+    #chatModalOverlay.open {
       display: flex;
     }
-    #loginPage form {
-      background-color: #111;
-      padding: 2rem;
+    #chatModal {
+      background-color: #fff;
       border-radius: 1rem;
-      max-width: 400px;
-      width: 100%;
-      box-sizing: border-box;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      width: 95vw;
+      max-width: 640px;
+      height: 80vh;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
+      position: relative;
+      max-height: 90vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    #loginPage h2 {
-      font-size: 2rem;
+    body.dark #chatModal {
+      background-color: #1f2937;
+      color: #d1d5db;
+      box-shadow: 0 8px 32px rgb(0 0 0 / 0.5);
+    }
+    #chatModal header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-weight: 700;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    #loginPage label {
-      display: block;
-      margin-bottom: 0.25rem;
-      font-weight: 600;
-    }
-    #loginPage input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-      border: 1.5px solid #444;
-      background-color: #000;
-      color: #fff;
       font-family: 'Roboto Mono', monospace;
-      font-size: 1rem;
-      box-sizing: border-box;
+      font-size: 1.25rem;
+      color: inherit;
       transition: border-color 0.3s ease;
     }
-    #loginPage input:focus {
-      outline: none;
-      border-color: #fff;
-      box-shadow: 0 0 8px 2px #fff;
+    body.dark #chatModal header {
+      border-color: #374151;
     }
-    #loginPage button {
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-      border: none;
-      background-color: #fff;
-      color: #000;
-      font-weight: 700;
-      font-family: 'Roboto Mono', monospace;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 0.5rem;
-    }
-    #loginPage button:hover,
-    #loginPage button:focus {
-      background-color: #ddd;
-      outline: none;
-    }
-    #loginPage button.closeLoginBtn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
+    #chatModal header button.closeModalBtn {
       background: none;
       border: none;
-      color: #fff;
-      font-size: 2rem;
+      font-size: 1.5rem;
       cursor: pointer;
-      padding: 0;
-      line-height: 1;
-      transition: color 0.3s ease;
-    }
-    #loginPage button.closeLoginBtn:hover,
-    #loginPage button.closeLoginBtn:focus {
-      color: #bbb;
-      outline: none;
-    }
-    /* Google login button */
-    #googleLoginBtn {
-      background-color: #4285F4;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      font-weight: 700;
-      font-family: 'Roboto Mono', monospace;
-      border-radius: 0.5rem;
-      padding: 0.75rem 1rem;
-      cursor: pointer;
-      border: none;
+      color: inherit;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
       transition: background-color 0.3s ease;
-      margin-top: 0.5rem;
     }
-    #googleLoginBtn:hover,
-    #googleLoginBtn:focus {
-      background-color: #357ae8;
+    #chatModal header button.closeModalBtn:hover,
+    #chatModal header button.closeModalBtn:focus {
+      background-color: #e0e7ff;
       outline: none;
+      color: #2563eb;
     }
-    #googleLoginBtn i {
-      font-size: 1.25rem;
+    body.dark #chatModal header button.closeModalBtn:hover,
+    body.dark #chatModal header button.closeModalBtn:focus {
+      background-color: #2563eb;
+      color: white;
     }
-    /* Create account link */
-    #createAccountLink {
-      margin-top: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #aaa;
-      cursor: pointer;
-      user-select: none;
-      text-decoration: underline;
-    }
-    #createAccountLink:hover,
-    #createAccountLink:focus {
-      color: #fff;
-      outline: none;
-    }
-    /* Create account form */
-    #createAccountForm {
-      display: none;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    #createAccountForm.active {
+    #chatModal main {
+      flex: 1;
+      overflow: hidden;
       display: flex;
+      flex-direction: column;
+      padding: 1rem 1rem 0 1rem;
+    }
+    /* Typing effect for AI messages */
+    .typing {
+      border-right: 2px solid #2563eb;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: blink-caret 0.75s step-end infinite;
+    }
+    @keyframes blink-caret {
+      from,
+      to {
+        border-color: transparent;
+      }
+      50% {
+        border-color: #2563eb;
+      }
     }
   </style>
- </head>
- <body class="bg-black text-white">
+</head>
+<body>
   <!-- Navbar -->
-  <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 backdrop-blur-sm z-50 shadow-md">
-   <nav aria-label="Ana navigasyon" class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-    <a class="flex items-center space-x-3 focus:outline-none focus:ring-2 focus:ring-white rounded" href="#hero">
-     <img alt="Cube AI Chat logosu, siyah arka plan üzerinde beyaz stilize küp" class="h-10 w-10 object-contain" draggable="false" height="40" loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnCMOZ7JUNuSDw7yEvcZV2Xw6t7Fc76R6OVdIEVR4hEI32HwZlEgXSZCRU2YGxhZ9oicU7nrk3PqZanBQWDzuPTQaNRpX66Xvja1phi9L2aXMeaF7F7ykWKwYA1eirlNOLaFvq32OXXJap6hUPbunojLTtdB0B4uvFGqd2kVshNo2_P50mwixwTu1mSA/s1080/BackgroundEraser_20250503_224811525.png" width="40"/>
-     <span class="text-2xl font-bold tracking-wide select-none">
-      Cube AI
-     </span>
-    </a>
-    <button aria-label="Menüyü aç" aria-haspopup="true" aria-expanded="false" class="focus:outline-none focus:ring-2 focus:ring-white p-2 rounded-md hover:bg-gray-800 md:hidden" id="menuToggle" type="button">
-     <i aria-hidden="true" class="fas fa-bars text-2xl"></i>
-    </button>
-    <div class="hidden md:flex space-x-8 text-lg font-semibold">
-     <a class="underline-anim flex items-center space-x-2 focus:ring-2 focus:ring-white rounded" href="#features">
-      <i aria-hidden="true" class="fas fa-star"></i>
-      <span>Özellikler</span>
-     </a>
-     <a class="underline-anim flex items-center space-x-2 focus:ring-2 focus:ring-white rounded" href="#download">
-      <i aria-hidden="true" class="fas fa-download"></i>
-      <span>İndir</span>
-     </a>
+  <header>
+    <nav aria-label="Ana navigasyon">
+      <a href="#hero" class="logo" tabindex="0">
+        <img
+          src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnCMOZ7JUNuSDw7yEvcZV2Xw6t7Fc76R6OVdIEVR4hEI32HwZlEgXSZCRU2YGxhZ9oicU7nrk3PqZanBQWDzuPTQaNRpX66Xvja1phi9L2aXMeaF7F7ykWKwYA1eirlNOLaFvq32OXXJap6hUPbunojLTtdB0B4uvFGqd2kVshNo2_P50mwixwTu1mSA/s1080/BackgroundEraser_20250503_224811525.png"
+          alt="Cube AI logosu, siyah arka plan üzerinde beyaz stilize küp"
+          draggable="false"
+          width="40"
+          height="40"
+        />
+        Cube AI
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#features" tabindex="0"><i class="fas fa-star"></i> Özellikler</a>
+        <a href="#faq" tabindex="0"><i class="fas fa-question-circle"></i> SSS</a>
+        <div
+          class="dropdown"
+          tabindex="0"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Daha fazla menü"
+        >
+          <button
+            id="dropdownToggle"
+            class="dropdown-toggle"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="dropdownMenu"
+            type="button"
+          >
+            <i class="fas fa-bars"></i> Menü
+          </button>
+          <div
+            id="dropdownMenu"
+            class="dropdown-menu"
+            role="menu"
+            tabindex="-1"
+            aria-labelledby="dropdownToggle"
+          >
+            <a href="#guestNameThemeOverlay" role="menuitem" tabindex="-1"
+              ><i class="fas fa-comments"></i> Sohbet Başlat</a
+            >
+            <a href="#profilePage" role="menuitem" tabindex="-1"
+              ><i class="fas fa-cog"></i> Ayarlar</a
+            >
+            <a href="#download" role="menuitem" tabindex="-1"
+              ><i class="fas fa-download"></i> İndir</a
+            >
+            <button
+              id="openProfileBtn"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              <i class="fas fa-user"></i> Profil
+            </button>
+          </div>
+        </div>
+        <button
+          id="darkModeToggle"
+          aria-label="Gece gündüz modunu değiştir"
+          title="Gece/Gündüz Modu"
+          type="button"
+          class="ml-4 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        >
+          <i class="fas fa-moon" id="darkModeIcon"></i>
+        </button>
+      </div>
+      <button
+        id="mobileMenuBtn"
+        aria-label="Mobil menüyü aç"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+        type="button"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <div
+      id="mobileMenu"
+      role="menu"
+      aria-label="Mobil navigasyon menüsü"
+      class="hidden flex-col bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg"
+    >
+      <a href="#features" tabindex="0" class="px-4 py-3 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+        ><i class="fas fa-star"></i> Özellikler</a
+      >
+      <a href="#faq" tabindex="0" class="px-4 py-3 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+        ><i class="fas fa-question-circle"></i> SSS</a
+      >
+      <a href="#guestNameThemeOverlay" tabindex="0" class="px-4 py-3 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+        ><i class="fas fa-comments"></i> Sohbet Başlat</a
+      >
+      <a href="#profilePage" tabindex="0" class="px-4 py-3 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+        ><i class="fas fa-cog"></i> Ayarlar</a
+      >
+      <a href="#download" tabindex="0" class="px-4 py-3 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+        ><i class="fas fa-download"></i> İndir</a
+      >
+      <button
+        id="mobileDarkModeToggle"
+        aria-label="Mobil gece gündüz modunu değiştir"
+        title="Gece/Gündüz Modu"
+        type="button"
+        class="px-4 py-3 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800 w-full text-left"
+      >
+        <i class="fas fa-moon" id="mobileDarkModeIcon"></i> Gece/Gündüz Modu
+      </button>
     </div>
-   </nav>
   </header>
-  <!-- Sidebar Menu -->
-  <aside aria-label="Ana menü" id="sidebarMenu" role="menu" tabindex="-1" aria-hidden="true">
-   <header>
-    <h2>Menü</h2>
-    <button aria-label="Menüyü kapat" class="closeBtn" title="Menüyü kapat" type="button">
-     <i aria-hidden="true" class="fas fa-times text-xl"></i>
-    </button>
-   </header>
-   <nav>
-    <a href="#features" tabindex="0" role="menuitem" class="menu-link">
-     <i class="fas fa-star mr-2" aria-hidden="true"></i> Özellikler
-    </a>
-    <a href="#download" tabindex="0" role="menuitem" class="menu-link">
-     <i class="fas fa-download mr-2" aria-hidden="true"></i> İndir
-    </a>
-    <a href="#chat" tabindex="0" role="menuitem" class="menu-link">
-     <i class="fas fa-comments mr-2" aria-hidden="true"></i> Şimdi Sohbet Et
-    </a>
-    <a href="#login" tabindex="0" role="menuitem" class="menu-link">
-     <i class="fas fa-sign-in-alt mr-2" aria-hidden="true"></i> Giriş Yap
-    </a>
-   </nav>
-  </aside>
-  <div id="overlay" tabindex="-1" aria-hidden="true"></div>
+
   <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 pb-12 max-w-4xl mx-auto" id="hero">
-   <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight select-none max-w-3xl mx-auto">
-    Cube AI Chat ile Sohbetin Geleceğine Adım Atın
-   </h1>
-   <p class="text-lg max-w-xl mt-8 mb-10 text-gray-300">
-    Yapay zekâ destekli sohbet deneyimini siyah beyaz minimal tasarım ile yaşayın. Hızlı, güvenilir ve kullanımı kolay.
-   </p>
-   <div class="flex flex-wrap justify-center gap-6">
-    <a class="inline-flex items-center px-8 py-4 border border-white rounded-full font-semibold text-white hover:bg-white hover:text-black transition focus:outline-none focus:ring-4 focus:ring-white" href="#download" role="button">
-     <i class="fas fa-download mr-3" aria-hidden="true"></i>
-     Şimdi İndir
-    </a>
-    <a class="inline-flex items-center px-8 py-4 border border-white rounded-full font-semibold text-white hover:bg-white hover:text-black transition focus:outline-none focus:ring-4 focus:ring-white" href="#chat" role="button">
-     <i class="fas fa-comments mr-3" aria-hidden="true"></i>
-     Şimdi Sohbet Et
-    </a>
-    <a class="inline-flex items-center px-8 py-4 border border-white rounded-full font-semibold text-white hover:bg-white hover:text-black transition focus:outline-none focus:ring-4 focus:ring-white" href="#login" role="button" id="openLoginBtn">
-     <i class="fas fa-sign-in-alt mr-3" aria-hidden="true"></i>
-     Giriş Yap
-    </a>
-   </div>
-  </section>
-  <!-- Features Section -->
-  <section class="bg-black bg-opacity-90 py-16 px-6" id="features">
-   <div class="max-w-6xl mx-auto text-center mb-12">
-    <h2 class="text-4xl font-bold mb-4 flex justify-center items-center space-x-3">
-     <i class="fas fa-star text-white text-3xl" aria-hidden="true"></i>
-     <span>Özellikler</span>
-    </h2>
-    <p class="text-gray-400 max-w-3xl mx-auto text-lg">
-     Cube AI Chat, gelişmiş yapay zekâ modelleri ile güçlü ve sezgisel sohbet deneyimi sunar.
+  <section id="hero" tabindex="0" aria-label="Ana tanıtım bölümü">
+    <img
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnCMOZ7JUNuSDw7yEvcZV2Xw6t7Fc76R6OVdIEVR4hEI32HwZlEgXSZCRU2YGxhZ9oicU7nrk3PqZanBQWDzuPTQaNRpX66Xvja1phi9L2aXMeaF7F7ykWKwYA1eirlNOLaFvq32OXXJap6hUPbunojLTtdB0B4uvFGqd2kVshNo2_P50mwixwTu1mSA/s1080/BackgroundEraser_20250503_224811525.png"
+      alt="Cube AI logosu, siyah arka plan üzerinde beyaz stilize küp"
+      draggable="false"
+      width="120"
+      height="120"
+      class="mx-auto"
+    />
+    <h1 class="text-4xl sm:text-5xl font-extrabold mt-4 mb-2 select-none">Cube AI</h1>
+    <p class="max-w-xl mx-auto text-gray-700 dark:text-gray-300 mb-6 px-4 sm:px-0">
+      Yapay zeka destekli sohbet deneyimini yeniden keşfedin. Cube AI ile hızlı, güvenilir ve akıllı sohbetler yapın.
     </p>
-   </div>
-   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-    <div class="flex flex-col items-center text-center space-y-4 px-4">
-     <i class="fas fa-bolt text-6xl text-white" aria-hidden="true"></i>
-     <h3 class="text-xl font-semibold">
-      Hızlı ve Akıcı
-     </h3>
-     <p class="text-gray-300">
-      Anında yanıtlar ve kesintisiz sohbet deneyimi.
-     </p>
-    </div>
-    <div class="flex flex-col items-center text-center space-y-4 px-4">
-     <i class="fas fa-robot text-6xl text-white" aria-hidden="true"></i>
-     <h3 class="text-xl font-semibold">
-      Gelişmiş Yapay Zekâ
-     </h3>
-     <p class="text-gray-300">
-      En yeni modellerle doğal ve anlamlı sohbetler.
-     </p>
-    </div>
-    <div class="flex flex-col items-center text-center space-y-4 px-4">
-     <i class="fas fa-lock text-6xl text-white" aria-hidden="true"></i>
-     <h3 class="text-xl font-semibold">
-      Gizlilik ve Güvenlik
-     </h3>
-     <p class="text-gray-300">
-      Verileriniz güvende, sohbetleriniz gizli kalır.
-     </p>
-    </div>
-    <div class="flex flex-col items-center text-center space-y-4 px-4">
-     <i class="fas fa-palette text-6xl text-white" aria-hidden="true"></i>
-     <h3 class="text-xl font-semibold">
-      Kişiselleştirilebilir Tema
-     </h3>
-     <p class="text-gray-300">
-      Koyu ve açık mod seçenekleri ile gözlerinizi yormayın.
-     </p>
-    </div>
-    <div class="flex flex-col items-center text-center space-y-4 px-4">
-     <i class="fas fa-mobile-alt text-6xl text-white" aria-hidden="true"></i>
-     <h3 class="text-xl font-semibold">
-      Tam Mobil Uyumluluk
-     </h3>
-     <p class="text-gray-300">
-      Her cihazda kusursuz ve hızlı performans.
-     </p>
-    </div>
-    <div class="flex flex-col items-center text-center space-y-4 px-4">
-     <i class="fas fa-user-friends text-6xl text-white" aria-hidden="true"></i>
-     <h3 class="text-xl font-semibold">
-      Kullanıcı Dostu Arayüz
-     </h3>
-     <p class="text-gray-300">
-      Basit ve sezgisel tasarım ile kolay kullanım.
-     </p>
-    </div>
-   </div>
+    <a
+      href="#chatModalOverlay"
+      class="btn-primary"
+      tabindex="0"
+      aria-label="Cube AI sohbet uygulamasını başlat"
+      >Şimdi Başlayın <i class="fas fa-arrow-right"></i
+    ></a>
   </section>
-  <!-- Download Section -->
-  <section class="py-16 px-6 max-w-4xl mx-auto text-center" id="download">
-   <h2 class="text-4xl font-bold mb-6 flex justify-center items-center space-x-3">
-    <i class="fas fa-download text-white text-3xl" aria-hidden="true"></i>
-    <span>Cube AI Chat'i İndirin</span>
-   </h2>
-   <p class="text-gray-400 mb-8 max-w-xl mx-auto">
-    Cube AI Chat'i hemen indirip yapay zekâ destekli sohbet deneyiminin keyfini çıkarın.
-   </p>
-   <div class="download-options" role="list" aria-label="İndirme seçenekleri">
-    <a href="#" class="download-option" role="listitem" aria-label="iOS için indir">
-     <i class="fab fa-apple" aria-hidden="true"></i>
-     <span>iOS</span>
-    </a>
-    <a href="#" class="download-option" role="listitem" aria-label="Android için indir">
-     <i class="fab fa-android" aria-hidden="true"></i>
-     <span>Android</span>
-    </a>
-    <a href="#" class="download-option" role="listitem" aria-label="Windows için indir">
-     <i class="fab fa-windows" aria-hidden="true"></i>
-     <span>Windows</span>
-    </a>
-   </div>
+
+  <!-- Download Section on Main Page -->
+  <section id="download" tabindex="0" aria-label="Uygulama indirme seçenekleri" class="max-w-lg mx-auto px-4 sm:px-0 mb-12">
+    <p class="text-xl font-semibold mb-6 flex items-center justify-center gap-3 text-gray-800 dark:text-gray-200 select-none">
+      <i class="fas fa-download fa-lg"></i> Uygulamayı İndirin:
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div
+        class="download-card flex flex-col items-center gap-4 p-6 rounded-xl shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+      >
+        <div class="icon-label"><i class="fab fa-apple"></i> App Store</div>
+        <a href="#" class="btn-download" aria-label="App Store'dan indir" tabindex="0"
+          ><i class="fas fa-download"></i> İndir</a
+        >
+      </div>
+      <div
+        class="download-card flex flex-col items-center gap-4 p-6 rounded-xl shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+      >
+        <div class="icon-label"><i class="fab fa-google-play"></i> Google Play</div>
+        <a href="#" class="btn-download" aria-label="Google Play'den indir" tabindex="0"
+          ><i class="fas fa-download"></i> İndir</a
+        >
+      </div>
+      <div
+        class="download-card flex flex-col items-center gap-4 p-6 rounded-xl shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+      >
+        <div class="icon-label"><i class="fab fa-windows"></i> Windows</div>
+        <a href="#" class="btn-download" aria-label="Windows için indir" tabindex="0"
+          ><i class="fas fa-download"></i> İndir</a
+        >
+      </div>
+    </div>
   </section>
-  <!-- Chat Section -->
-  <section class="py-16 px-6 max-w-4xl mx-auto text-center" id="chat">
-   <h2 class="text-4xl font-bold mb-6 flex justify-center items-center space-x-3">
-    <i class="fas fa-comments text-white text-3xl" aria-hidden="true"></i>
-    <span>Şimdi Sohbet Et</span>
-   </h2>
-   <p class="text-gray-400 mb-8 max-w-xl mx-auto">
-    Cube AI Chat ile hemen sohbet etmeye başlayın. Yapay zekâ size her zaman yardımcı olmaya hazır.
-   </p>
-   <a class="inline-flex items-center justify-center px-10 py-4 border border-white rounded-full font-semibold text-white hover:bg-white hover:text-black transition focus:outline-none focus:ring-4 focus:ring-white" href="#" role="button" aria-label="Cube AI Chat ile sohbet etmeye başla">
-    <i class="fas fa-comments mr-3" aria-hidden="true"></i>
-    Sohbete Başla
-   </a>
+
+  <!-- Features Section -->
+  <section id="features" tabindex="0" aria-labelledby="featuresTitle" class="scrollbar-thin max-w-6xl mx-auto px-4 sm:px-0 mb-16">
+    <h2 id="featuresTitle" class="section-title">Özelliklerimiz</h2>
+    <div class="features-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2.5rem; margin-top:2rem;">
+      <article class="feature-card" tabindex="0" aria-label="Gerçek zamanlı sohbet" style="background-color:#fff; border-radius:1rem; padding:2rem; box-shadow:0 4px 12px rgb(0 0 0 / 0.1); transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none; cursor:default; color:#374151; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <i class="fas fa-comments feature-icon" aria-hidden="true" style="font-size:3.5rem; color:#2563eb; margin-bottom:1rem; user-select:none;"></i>
+        <h3 class="feature-title" style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:#374151;">Gerçek Zamanlı Sohbet</h3>
+        <p class="feature-description" style="color:#4b5563; font-size:1rem; line-height:1.5; white-space:pre-line; user-select:text;">
+          Cube AI, kullanıcılar ile yapay zeka arasında anlık ve kesintisiz sohbet deneyimi sunar.
+        </p>
+      </article>
+      <article class="feature-card" tabindex="0" aria-label="Kod bloğu desteği" style="background-color:#fff; border-radius:1rem; padding:2rem; box-shadow:0 4px 12px rgb(0 0 0 / 0.1); transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none; cursor:default; color:#374151; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <i class="fas fa-code feature-icon" aria-hidden="true" style="font-size:3.5rem; color:#2563eb; margin-bottom:1rem; user-select:none;"></i>
+        <h3 class="feature-title" style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:#374151;">Kod Bloğu Desteği</h3>
+        <p class="feature-description" style="color:#4b5563; font-size:1rem; line-height:1.5; white-space:pre-line; user-select:text;">
+          Yapay zeka yanıtlarında kod blokları desteklenir, kolayca kopyalayabilir ve düzenleyebilirsiniz.
+        </p>
+      </article>
+      <article class="feature-card" tabindex="0" aria-label="Karanlık ve açık tema" style="background-color:#fff; border-radius:1rem; padding:2rem; box-shadow:0 4px 12px rgb(0 0 0 / 0.1); transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none; cursor:default; color:#374151; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <i class="fas fa-adjust feature-icon" aria-hidden="true" style="font-size:3.5rem; color:#2563eb; margin-bottom:1rem; user-select:none;"></i>
+        <h3 class="feature-title" style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:#374151;">Karanlık ve Açık Tema</h3>
+        <p class="feature-description" style="color:#4b5563; font-size:1rem; line-height:1.5; white-space:pre-line; user-select:text;">
+          Kullanıcı tercihinize göre koyu veya açık temalar arasında kolayca geçiş yapabilirsiniz.
+        </p>
+      </article>
+      <article class="feature-card" tabindex="0" aria-label="Sohbet geçmişi yönetimi" style="background-color:#fff; border-radius:1rem; padding:2rem; box-shadow:0 4px 12px rgb(0 0 0 / 0.1); transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none; cursor:default; color:#374151; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <i class="fas fa-history feature-icon" aria-hidden="true" style="font-size:3.5rem; color:#2563eb; margin-bottom:1rem; user-select:none;"></i>
+        <h3 class="feature-title" style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:#374151;">Sohbet Geçmişi Yönetimi</h3>
+        <p class="feature-description" style="color:#4b5563; font-size:1rem; line-height:1.5; white-space:pre-line; user-select:text;">
+          Sohbet geçmişinizi düzenleyin, başlıkları değiştirin, silin veya arama yaparak kolayca bulun.
+        </p>
+      </article>
+      <article class="feature-card" tabindex="0" aria-label="Mobil uyumlu tasarım" style="background-color:#fff; border-radius:1rem; padding:2rem; box-shadow:0 4px 12px rgb(0 0 0 / 0.1); transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none; cursor:default; color:#374151; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <i class="fas fa-mobile-alt feature-icon" aria-hidden="true" style="font-size:3.5rem; color:#2563eb; margin-bottom:1rem; user-select:none;"></i>
+        <h3 class="feature-title" style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:#374151;">Mobil Uyumlu Tasarım</h3>
+        <p class="feature-description" style="color:#4b5563; font-size:1rem; line-height:1.5; white-space:pre-line; user-select:text;">
+          Her cihazda kusursuz çalışan, tamamen responsive ve kullanıcı dostu arayüz.
+        </p>
+      </article>
+    </div>
   </section>
-  <!-- Login Page Modal -->
-  <section id="loginPage" role="dialog" aria-modal="true" aria-labelledby="loginTitle" tabindex="-1">
-   <button aria-label="Giriş sayfasını kapat" class="closeLoginBtn" type="button" id="closeLoginBtn">
-    <i class="fas fa-times" aria-hidden="true"></i>
-   </button>
-   <form>
-    <h2 id="loginTitle">Giriş Yap</h2>
-    <label for="emailInput">E-posta</label>
-    <input autocomplete="email" id="emailInput" name="email" placeholder="E-posta adresinizi girin" required="" type="email"/>
-    <label for="passwordInput">Şifre</label>
-    <input autocomplete="current-password" id="passwordInput" name="password" placeholder="Şifrenizi girin" required="" type="password"/>
-    <button type="submit">
-     Giriş Yap
+
+  <!-- Chat Modal Overlay -->
+  <div
+    id="chatModalOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="chatModalTitle"
+    tabindex="-1"
+    class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50"
+  >
+    <div
+      id="chatModal"
+      role="document"
+      tabindex="0"
+      aria-label="Cube AI Sohbet Uygulaması"
+    >
+      <header>
+        <h2 id="chatModalTitle">Cube AI Sohbet</h2>
+        <button
+          class="closeModalBtn"
+          aria-label="Sohbet penceresini kapat"
+          title="Sohbet penceresini kapat"
+          type="button"
+        >
+          &times;
+        </button>
+      </header>
+      <main>
+        <main id="chatContainer" role="main" aria-label="Sohbet alanı">
+          <div
+            id="chat"
+            class="chat-scroll flex flex-col space-y-4"
+            aria-live="polite"
+            aria-relevant="additions"
+            role="log"
+            tabindex="0"
+          >
+            <div
+              id="startMessage"
+              style="
+                color: #6b7280;
+                font-style: italic;
+                text-align: center;
+                margin-top: 2rem;
+                user-select: none;
+                font-family: 'Roboto Mono', monospace;
+                font-size: 1.125rem;
+              "
+            >
+              Merhaba! Cube AI'ya sorularınızı yazabilirsiniz.
+            </div>
+          </div>
+
+          <!-- Message input area -->
+          <form
+            id="chatForm"
+            aria-label="Mesaj gönderme formu"
+            autocomplete="off"
+            novalidate
+            class="relative flex items-center gap-2 p-4 border-t border-gray-300 dark:border-gray-600"
+          >
+            <textarea
+              id="messageInput"
+              rows="1"
+              placeholder="Sorunuzu yazın..."
+              aria-label="Mesaj yazma alanı"
+              required
+              spellcheck="false"
+              class="flex-1 resize-none rounded-md border border-gray-400 p-3 font-mono text-base text-black dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style="min-height: 2.75rem; max-height: 6rem; overflow-y: auto"
+            ></textarea>
+            <button
+              id="sendBtn"
+              type="submit"
+              aria-label="Mesaj gönder"
+              disabled
+              class="p-3 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300 disabled:text-blue-600 disabled:cursor-not-allowed"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </main>
+      </main>
+    </div>
+  </div>
+
+  <!-- Floating chat icon -->
+  <button
+    aria-label="Cube AI sohbet uygulamasını başlat"
+    id="chatIcon"
+    title="Sohbeti Başlat"
+    type="button"
+    tabindex="0"
+    class="fixed bottom-6 right-6 bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex justify-center items-center cursor-pointer select-none transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 z-50"
+  >
+    <i class="fas fa-comments text-xl"></i>
+  </button>
+
+  <!-- Cookie Consent -->
+  <div
+    id="cookieConsent"
+    role="region"
+    aria-label="Çerez bildirimi"
+    class="fixed bottom-0 left-0 right-0 bg-blue-600 text-white p-4 flex justify-between items-center font-mono text-sm z-50 select-none flex-wrap gap-2 hidden"
+  >
+    <p class="flex-1">
+      Bu site çerezleri kullanır. Devam ederek kabul etmiş olursunuz.
+    </p>
+    <button
+      id="acceptCookiesBtn"
+      aria-label="Çerezleri kabul et"
+      class="bg-white text-blue-600 font-bold rounded-md px-4 py-2 cursor-pointer transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
+      type="button"
+    >
+      Kabul Et
     </button>
-    <button id="googleLoginBtn" type="button" aria-label="Google ile giriş yap">
-     <i class="fab fa-google" aria-hidden="true"></i>
-     Google ile Giriş Yap
-    </button>
-    <div id="createAccountLink" tabindex="0" role="button" aria-label="Hesap oluştur">
-     Hesabınız yok mu? Hesap oluştur
-    </div>
-    <div id="createAccountForm" aria-live="polite" aria-hidden="true">
-     <label for="createEmailInput">E-posta</label>
-     <input autocomplete="email" id="createEmailInput" name="createEmail" placeholder="E-posta adresinizi girin" type="email"/>
-     <label for="createPasswordInput">Şifre</label>
-     <input autocomplete="new-password" id="createPasswordInput" name="createPassword" placeholder="Şifrenizi girin" type="password"/>
-     <label for="createConfirmPasswordInput">Şifre (Tekrar)</label>
-     <input autocomplete="new-password" id="createConfirmPasswordInput" name="createConfirmPassword" placeholder="Şifrenizi tekrar girin" type="password"/>
-     <button id="createAccountBtn" type="button">
-      Hesap Oluştur
-     </button>
-    </div>
-   </form>
-  </section>
+  </div>
+
   <!-- Footer -->
-  <footer class="bg-black bg-opacity-90 py-8 mt-16 text-center text-gray-500 text-sm select-none">
-   &copy; 2024 Cube AI Chat. Tüm hakları saklıdır.
+  <footer class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 text-center p-6 select-none">
+    <p>© 2024 Cube AI. Tüm hakları saklıdır.</p>
+    <p class="mt-1">
+      <a href="mailto:info@cubeaichat.com" aria-label="İletişim için e-posta gönder" class="underline hover:text-blue-600 dark:hover:text-blue-400">İletişim</a>
+      |
+      <a href="#faq" aria-label="Gizlilik Politikası" class="underline hover:text-blue-600 dark:hover:text-blue-400">Gizlilik Politikası</a>
+      |
+      <a href="#faq" aria-label="Kullanım Şartları" class="underline hover:text-blue-600 dark:hover:text-blue-400">Kullanım Şartları</a>
+    </p>
   </footer>
+
   <script>
-   (() => {
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarMenu = document.getElementById('sidebarMenu');
-      const overlay = document.getElementById('overlay');
-      const closeBtn = sidebarMenu.querySelector('button.closeBtn');
-      const menuLinks = sidebarMenu.querySelectorAll('a.menu-link, a[role="menuitem"]');
+    // Navbar dropdown toggle
+    const dropdownToggle = document.getElementById('dropdownToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const dropdown = dropdownToggle.closest('.dropdown');
 
-      const loginPage = document.getElementById('loginPage');
-      const openLoginBtn = document.getElementById('openLoginBtn');
-      const closeLoginBtn = document.getElementById('closeLoginBtn');
-
-      const createAccountLink = document.getElementById('createAccountLink');
-      const createAccountForm = document.getElementById('createAccountForm');
-      const createAccountBtn = document.getElementById('createAccountBtn');
-
-      function openMenu() {
-        sidebarMenu.classList.add('open');
-        sidebarMenu.setAttribute('aria-hidden', 'false');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        overlay.classList.add('active');
-        // Focus first link in menu
-        const firstLink = sidebarMenu.querySelector('nav a, nav button');
-        if (firstLink) firstLink.focus();
-        document.body.style.overflow = 'hidden';
+    dropdownToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const expanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        closeDropdown();
+      } else {
+        openDropdown();
       }
+    });
 
-      function closeMenu() {
-        sidebarMenu.classList.remove('open');
-        sidebarMenu.setAttribute('aria-hidden', 'true');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        overlay.classList.remove('active');
-        menuToggle.focus();
-        document.body.style.overflow = '';
+    function openDropdown() {
+      dropdownMenu.classList.add('show');
+      dropdownToggle.setAttribute('aria-expanded', 'true');
+      dropdown.setAttribute('aria-expanded', 'true');
+      const firstItem = dropdownMenu.querySelector('a, button');
+      if (firstItem) firstItem.focus();
+    }
+
+    function closeDropdown() {
+      dropdownMenu.classList.remove('show');
+      dropdownToggle.setAttribute('aria-expanded', 'false');
+      dropdown.setAttribute('aria-expanded', 'false');
+      dropdownToggle.focus();
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        closeDropdown();
       }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (dropdownMenu.classList.contains('show')) {
+          closeDropdown();
+        }
+      }
+    });
 
-      menuToggle.addEventListener('click', () => {
-        if (sidebarMenu.classList.contains('open')) {
-          closeMenu();
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('show');
+      if (isOpen) {
+        mobileMenu.classList.remove('show');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileMenu.classList.add('show');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a, button').forEach((el) => {
+      el.addEventListener('click', () => {
+        mobileMenu.classList.remove('show');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
+    const darkModeIcon = document.getElementById('darkModeIcon');
+    const mobileDarkModeIcon = document.getElementById('mobileDarkModeIcon');
+
+    function setDarkMode(enabled) {
+      if (enabled) {
+        document.body.classList.add('dark');
+        darkModeIcon.classList.remove('fa-moon');
+        darkModeIcon.classList.add('fa-sun');
+        mobileDarkModeIcon.classList.remove('fa-moon');
+        mobileDarkModeIcon.classList.add('fa-sun');
+        localStorage.setItem('cube_ai_dark_mode', 'enabled');
+      } else {
+        document.body.classList.remove('dark');
+        darkModeIcon.classList.remove('fa-sun');
+        darkModeIcon.classList.add('fa-moon');
+        mobileDarkModeIcon.classList.remove('fa-sun');
+        mobileDarkModeIcon.classList.add('fa-moon');
+        localStorage.setItem('cube_ai_dark_mode', 'disabled');
+      }
+    }
+
+    function toggleDarkMode() {
+      const isDark = document.body.classList.contains('dark');
+      setDarkMode(!isDark);
+    }
+
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+    mobileDarkModeToggle.addEventListener('click', () => {
+      toggleDarkMode();
+      // Close mobile menu after toggling dark mode
+      mobileMenu.classList.remove('show');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    });
+
+    // Initialize dark mode based on localStorage or system preference
+    window.addEventListener('load', () => {
+      const saved = localStorage.getItem('cube_ai_dark_mode');
+      if (saved === 'enabled') {
+        setDarkMode(true);
+      } else if (saved === 'disabled') {
+        setDarkMode(false);
+      } else {
+        // Use system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setDarkMode(prefersDark);
+      }
+    });
+
+    // Floating chat icon opens modal
+    const chatIcon = document.getElementById('chatIcon');
+    const chatModalOverlay = document.getElementById('chatModalOverlay');
+    const closeModalBtn = chatModalOverlay.querySelector('.closeModalBtn');
+
+    chatIcon.addEventListener('click', () => {
+      chatModalOverlay.classList.add('open');
+      chatModalOverlay.setAttribute('aria-hidden', 'false');
+      chatModalOverlay.focus();
+      const textarea = document.getElementById('messageInput');
+      if (textarea) textarea.focus();
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      chatModalOverlay.classList.remove('open');
+      chatModalOverlay.setAttribute('aria-hidden', 'true');
+      chatIcon.focus();
+    });
+
+    chatModalOverlay.addEventListener('click', (e) => {
+      if (e.target === chatModalOverlay) {
+        chatModalOverlay.classList.remove('open');
+        chatModalOverlay.setAttribute('aria-hidden', 'true');
+        chatIcon.focus();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && chatModalOverlay.classList.contains('open')) {
+        chatModalOverlay.classList.remove('open');
+        chatModalOverlay.setAttribute('aria-hidden', 'true');
+        chatIcon.focus();
+      }
+    });
+
+    // FAQ accordion functionality
+    document.querySelectorAll('.faq-question').forEach((button) => {
+      button.addEventListener('click', () => {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const isOpen = faqItem.classList.contains('open');
+
+        if (isOpen) {
+          faqItem.classList.remove('open');
+          answer.hidden = true;
+          button.setAttribute('aria-expanded', 'false');
         } else {
-          openMenu();
+          document.querySelectorAll('.faq-item.open').forEach((openItem) => {
+            openItem.classList.remove('open');
+            openItem.querySelector('.faq-answer').hidden = true;
+            openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          });
+          faqItem.classList.add('open');
+          answer.hidden = false;
+          button.setAttribute('aria-expanded', 'true');
+          answer.focus();
         }
       });
+    });
 
-      closeBtn.addEventListener('click', () => {
-        closeMenu();
-      });
-
-      overlay.addEventListener('click', () => {
-        closeMenu();
-      });
-
-      // Close menu on Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          if (sidebarMenu.classList.contains('open')) {
-            e.preventDefault();
-            closeMenu();
-          }
-          if (loginPage.classList.contains('open')) {
-            e.preventDefault();
-            closeLogin();
-          }
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.querySelector('.faq-question').click();
         }
       });
+    });
 
-      // Trap focus inside sidebar when open
-      sidebarMenu.addEventListener('keydown', (e) => {
-        if (e.key === 'Tab') {
-          const focusableElements = sidebarMenu.querySelectorAll('a, button:not([disabled])');
-          const firstEl = focusableElements[0];
-          const lastEl = focusableElements[focusableElements.length -1];
-          if (e.shiftKey) {
-            if (document.activeElement === firstEl) {
-              e.preventDefault();
-              lastEl.focus();
-            }
-          } else {
-            if (document.activeElement === lastEl) {
-              e.preventDefault();
-              firstEl.focus();
-            }
-          }
+    // Cookie consent with 1 second delay and localStorage
+    const cookieConsent = document.getElementById('cookieConsent');
+    const acceptCookiesBtn = document.getElementById('acceptCookiesBtn');
+
+    function showCookieConsent() {
+      cookieConsent.classList.add('show');
+    }
+
+    function hideCookieConsent() {
+      cookieConsent.classList.remove('show');
+    }
+
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('cube_ai_cookie_consent');
+      if (consent !== 'accepted') {
+        setTimeout(() => {
+          showCookieConsent();
+        }, 1000);
+      }
+    }
+
+    acceptCookiesBtn.addEventListener('click', () => {
+      localStorage.setItem('cube_ai_cookie_consent', 'accepted');
+      hideCookieConsent();
+    });
+
+    window.addEventListener('load', () => {
+      checkCookieConsent();
+    });
+
+    // Chat form functionality with typing effect for AI messages
+    const chatForm = document.getElementById('chatForm');
+    const messageInput = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const chat = document.getElementById('chat');
+    const startMessage = document.getElementById('startMessage');
+
+    function toggleSendButton() {
+      sendBtn.disabled = messageInput.value.trim().length === 0;
+    }
+    messageInput.addEventListener('input', toggleSendButton);
+    toggleSendButton();
+
+    // Simple Q&A pairs for demo
+    const qaPairs = {
+      merhaba: 'Merhaba! Size nasıl yardımcı olabilirim?',
+      nasılsın: 'Teşekkür ederim, iyiyim! Siz nasılsınız?',
+      'cube ai nedir': 'Cube AI, yapay zeka destekli bir sohbet uygulamasıdır.',
+      yardım: 'Tabii, size nasıl yardımcı olabilirim?',
+      teşekkür: 'Rica ederim! Başka bir sorunuz var mı?',
+      görüşürüz: 'Görüşmek üzere! İyi günler dilerim.',
+    };
+
+    function getAnswer(question) {
+      const q = question.toLowerCase().trim();
+      for (const key in qaPairs) {
+        if (q.includes(key)) {
+          return qaPairs[key];
         }
-      });
+      }
+      return 'Üzgünüm, bunu anlayamadım. Lütfen başka bir soru deneyin.';
+    }
 
-      // Close menu when clicking a menu link
-      menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          closeMenu();
+    // Typing effect function
+    function typeText(element, text, speed = 30, callback) {
+      let i = 0;
+      element.textContent = '';
+      element.classList.add('typing');
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else {
+          element.classList.remove('typing');
+          if (callback) callback();
+        }
+      }
+      type();
+    }
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = messageInput.value.trim();
+      if (!msg) return;
+      if (startMessage) startMessage.style.display = 'none';
+
+      // Create user message bubble
+      const userWrapper = document.createElement('div');
+      userWrapper.className = 'message-wrapper user';
+      const userMsg = document.createElement('div');
+      userMsg.className = 'message user';
+      userMsg.textContent = msg;
+      userWrapper.appendChild(userMsg);
+      chat.appendChild(userWrapper);
+
+      // Clear input
+      messageInput.value = '';
+      toggleSendButton();
+      chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
+
+      // Generate AI response with typing effect
+      setTimeout(() => {
+        const aiWrapper = document.createElement('div');
+        aiWrapper.className = 'message-wrapper ai';
+        const aiMsg = document.createElement('div');
+        aiMsg.className = 'message ai';
+        aiWrapper.appendChild(aiMsg);
+        chat.appendChild(aiWrapper);
+        chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
+
+        const answer = getAnswer(msg);
+        typeText(aiMsg, answer, 30, () => {
+          chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
         });
-      });
-
-      // Login modal open/close
-      function openLogin() {
-        loginPage.classList.add('open');
-        loginPage.setAttribute('aria-hidden', 'false');
-        loginPage.focus();
-        document.body.style.overflow = 'hidden';
-      }
-      function closeLogin() {
-        loginPage.classList.remove('open');
-        loginPage.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        openLoginBtn.focus();
-        // Reset forms and states
-        createAccountForm.classList.remove('active');
-        createAccountLink.style.display = 'block';
-        loginPage.querySelector('form').style.display = 'flex';
-      }
-
-      openLoginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openLogin();
-      });
-
-      closeLoginBtn.addEventListener('click', () => {
-        closeLogin();
-      });
-
-      // Close login modal on overlay click
-      overlay.addEventListener('click', () => {
-        if (loginPage.classList.contains('open')) {
-          closeLogin();
-        }
-      });
-
-      // Trap focus inside login modal when open
-      loginPage.addEventListener('keydown', (e) => {
-        if (e.key === 'Tab') {
-          const focusableElements = loginPage.querySelectorAll('input, button:not([disabled])');
-          const firstEl = focusableElements[0];
-          const lastEl = focusableElements[focusableElements.length -1];
-          if (e.shiftKey) {
-            if (document.activeElement === firstEl) {
-              e.preventDefault();
-              lastEl.focus();
-            }
-          } else {
-            if (document.activeElement === lastEl) {
-              e.preventDefault();
-              firstEl.focus();
-            }
-          }
-        }
-      });
-
-      // Prevent form submission for demo
-      const loginForm = loginPage.querySelector('form');
-      loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Giriş işlemi demo amaçlıdır.');
-        closeLogin();
-      });
-
-      // Google login button demo
-      const googleLoginBtn = document.getElementById('googleLoginBtn');
-      googleLoginBtn.addEventListener('click', () => {
-        alert('Google ile giriş demo amaçlıdır.');
-      });
-
-      // Toggle create account form
-      createAccountLink.addEventListener('click', () => {
-        createAccountForm.classList.add('active');
-        createAccountLink.style.display = 'none';
-        loginPage.querySelector('form').style.display = 'flex';
-        // Focus first input in create account form
-        const firstInput = createAccountForm.querySelector('input');
-        if (firstInput) firstInput.focus();
-      });
-
-      // Create account button demo
-      createAccountBtn.addEventListener('click', () => {
-        const email = document.getElementById('createEmailInput').value.trim();
-        const pass = document.getElementById('createPasswordInput').value;
-        const confirmPass = document.getElementById('createConfirmPasswordInput').value;
-        if (!email || !pass || !confirmPass) {
-          alert('Lütfen tüm alanları doldurun.');
-          return;
-        }
-        if (pass !== confirmPass) {
-          alert('Şifreler eşleşmiyor.');
-          return;
-        }
-        alert('Hesap oluşturma demo amaçlıdır.');
-        closeLogin();
-      });
-    })();
+      }, 700);
+    });
   </script>
- </body>
+</body>
 </html>
